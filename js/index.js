@@ -31,8 +31,8 @@ function loadProcessList() {
                         </div>
                     </div>
                     <div class="process-actions">
-                        <a href="view.html?id=${key}" class="btn">查看</a>
-                        <a href="edit.html?id=${key}" class="btn">编辑</a>
+                        <a href="view.html?id=${key}" class="btn btn-view">查看</a>
+                        <a href="edit.html?id=${key}" class="btn btn-edit">编辑</a>
                         <button onclick="deleteProcess('${key}')" class="btn btn-danger">删除</button>
                     </div>
                 `;

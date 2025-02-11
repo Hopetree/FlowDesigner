@@ -39,6 +39,7 @@ body {
     z-index: 1;
 }
 
+/* 保持原有的 .actions 样式不变，用于其他页面 */
 .actions {
     position: fixed;
     left: 20px;
@@ -46,7 +47,14 @@ body {
     z-index: 1000;
     display: flex;
     gap: 10px;
-    pointer-events: none; /* 确保鼠标事件可以穿透到底层画布 */
+    pointer-events: none;
+}
+
+/* 添加 index 页面特定的样式 */
+.index-actions {
+    position: static;
+    margin-bottom: 20px;
+    pointer-events: auto;
 }
 
 /* 按钮样式 */
@@ -184,4 +192,71 @@ body {
 .add-tag-btn:hover {
     background-color: #f8f9fa;
     border-color: #aaa;
+}
+/* 列表头部布局 */
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.list-header h2 {
+    margin: 0;
+    color: #333;
+}
+
+/* index 页面的按钮容器 */
+.container .actions.index-actions {
+    position: static;
+    margin: 0;
+    pointer-events: auto;
+}
+
+/* index 页面的按钮样式 */
+/* 创建按钮（主要操作）使用蓝色 */
+/* 创建按钮使用较柔和的蓝色 */
+.container .actions.index-actions .btn {
+    background-color: #4285f4;
+    color: white;
+    border: none;
+}
+
+.container .actions.index-actions .btn:hover {
+    background-color: #3367d6;
+}
+
+/* 查看按钮使用较柔和的绿色 */
+.process-actions .btn-view {
+    background-color: #0f9d58;
+    color: white;
+    border: none;
+}
+
+.process-actions .btn-view:hover {
+    background-color: #0b8043;
+}
+
+/* 编辑按钮使用较柔和的橙色，文字改为深色 */
+.process-actions .btn-edit {
+    background-color: #fbbc04;
+    color: #202124;
+    border: none;
+}
+
+.process-actions .btn-edit:hover {
+    background-color: #f29900;
+}
+
+/* 删除按钮使用较柔和的红色 */
+.btn-danger {
+    background-color: #ea4335;
+    color: white;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #d93025;
 }
