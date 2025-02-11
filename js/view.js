@@ -13,7 +13,20 @@ async function loadDiagram(processId) {
         if (processData && processData.xml) {
             await bpmnViewer.importXML(processData.xml);
             const canvas = bpmnViewer.get('canvas');
+            
+            // 先设置视图缩放以适应视口
             canvas.zoom('fit-viewport');
+            
+            // 获取当前视图框
+            const viewbox = canvas.viewbox();
+            
+            // 添加边距
+            canvas.viewbox({
+                x: viewbox.x - 30,      // 左边距设为 30
+                y: viewbox.y - 50,      // 上边距保持 50
+                width: viewbox.width,
+                height: viewbox.height + 35
+            });
         } else {
             alert('流程不存在');
             window.location.href = 'index.html';

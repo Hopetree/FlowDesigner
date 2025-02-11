@@ -260,3 +260,19 @@ body {
 .btn-danger:hover {
     background-color: #d93025;
 }
+/* 查看页面的容器样式 */
+.container-fullscreen.view-container {
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #ffffff;
+}
+
+.container-fullscreen.view-container #canvas {
+    height: 100vh;
+    background-color: #ffffff;
+}
+
+/* 移除画布的阴影和边框效果 */
+.djs-container {
+    background-color: #ffffff;
+}
