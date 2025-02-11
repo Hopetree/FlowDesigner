@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新建流程 - BPMN</title>
+    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@18.2.0/dist/assets/diagram-js.css">
+    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@18.2.0/dist/assets/bpmn-font/css/bpmn.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container-fullscreen with-grid">
+        <div id="canvas"></div>
+        <div class="actions">
+            <input type="file" id="importFile" accept=".bpmn,.xml" style="display: none;">
+            <button id="importBtn" class="btn">导入</button>
+            <button id="exportBtn" class="btn">导出BPMN</button>
+            <button id="exportSvgBtn" class="btn">导出SVG</button>
+            <button id="saveBtn" class="btn">保存</button>
+            <a href="index.html" class="btn">返回</a>
+        </div>
+    </div>
+    <script src="https://unpkg.com/bpmn-js@18.2.0/dist/bpmn-modeler.development.js"></script>
+    <script src="js/create.js"></script>
+</body>
+</html>
