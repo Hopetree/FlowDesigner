@@ -3,20 +3,18 @@ function loadProcessList() {
     const processList = document.getElementById('processList');
     processList.innerHTML = '';
 
-    // 从 localStorage 获取所有流程
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (key.startsWith('bpmn_')) {
             try {
                 const processData = JSON.parse(localStorage.getItem(key));
-                const processName = key.replace('bpmn_', '');
-                const createTime = new Date(parseInt(processName)).toLocaleString();
+                const createTime = new Date(processData.createTime || parseInt(key.replace('bpmn_', ''))).toLocaleString();
                 
                 const div = document.createElement('div');
                 div.className = 'process-item';
                 div.innerHTML = `
                     <div class="process-info">
-                        <div class="process-name">流程 ${createTime}</div>
+                        <div class="process-name">${processData.name || '未命名流程'} (${createTime})</div>
                         <div class="process-tags">
                             ${(processData.tags || []).map(tag => `
                                 <span class="tag">

@@ -15,13 +15,17 @@ async function createNewDiagram() {
 // 保存流程图
 document.getElementById('saveBtn').addEventListener('click', async () => {
     try {
+        const processName = prompt('请输入流程名称：');
+        if (!processName) return;  // 如果用户取消或未输入，则不保存
+
         const { xml } = await bpmnModeler.saveXML({ format: true });
+        const processId = 'bpmn_' + Date.now();
         const processData = {
             xml: xml,
-            tags: [],
+            name: processName,
             createTime: Date.now()
         };
-        localStorage.setItem('bpmn_' + Date.now(), JSON.stringify(processData));
+        localStorage.setItem(processId, JSON.stringify(processData));
         alert('保存成功');
         window.location.href = 'index.html';
     } catch (err) {
