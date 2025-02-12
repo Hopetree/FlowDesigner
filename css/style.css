@@ -139,39 +139,43 @@ body {
 }
 
 .tag {
-    background-color: #e9ecef;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    color: #666;
+    background-color: #f1f5f9;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 13px;
+    color: #475569;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    position: relative;
 }
 
-.tag-actions {
-    display: inline-flex;
-    gap: 3px;
-    margin-left: 3px;
-}
-
-.tag-edit, .tag-delete {
-    cursor: pointer;
-    opacity: 0.5;
-    font-size: 12px;
-    padding: 0 2px;
-}
-
-.tag-edit:hover, .tag-delete:hover {
-    opacity: 1;
+.tag-text {
+    position: relative;
+    z-index: 1;
 }
 
 .tag-delete {
-    color: #dc3545;
+    display: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #dc2626;
+    position: absolute;
+    right: -4px;
+    top: -4px;
+    width: 16px;
+    height: 16px;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: color 0.2s ease;
 }
 
-.tag-edit {
-    color: #0d6efd;
+.tag:hover .tag-delete {
+    display: flex;
+}
+
+.tag:hover .tag-delete:hover {
+    color: #b91c1c;
 }
 
 .add-tag-btn {
@@ -270,8 +274,41 @@ body {
     font-size: 16px;
     font-weight: 500;
     color: #333;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    user-select: none;
 }
 
+.name-text:hover {
+    color: #4285f4;
+}
+
+.create-time {
+    font-size: 13px;
+    color: #666;
+    margin-left: 8px;
+}
+
+/* 删除所有 tag-edit 相关样式 */
+.process-name .tag-edit {
+    cursor: pointer;
+    font-size: 12px;
+    color: #0d6efd;
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%) scaleX(-1); /* 添加水平镜像效果 */
+    display: none;
+    transition: color 0.2s ease;
+}
+
+.name-text:hover .tag-edit {
+    display: inline;
+}
+
+.name-text:hover .tag-edit:hover {
+    color: #0a58ca;
+}
 .create-time {
     font-size: 13px;
     color: #666;
