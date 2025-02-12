@@ -260,3 +260,33 @@ body {
 .btn-danger:hover {
     background-color: #d93025;
 }
+.process-name {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.name-text {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+}
+
+.create-time {
+    font-size: 13px;
+    color: #666;
+    margin-left: 8px;  /* 改为固定间距，不再使用 auto */
+}
+
+.process-name .tag-edit {
+    cursor: pointer;
+    opacity: 0.5;
+    font-size: 12px;
+    padding: 0 2px;
+    margin-left: 8px;
+    color: #0d6efd;
+}
+
+.process-name .tag-edit:hover {
+    opacity: 1;
+}

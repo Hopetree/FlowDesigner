@@ -3,43 +3,68 @@ function loadProcessList() {
     const processList = document.getElementById('processList');
     processList.innerHTML = '';
 
+    // 获取所有流程并转换为数组以便排序
+    const processes = [];
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (key.startsWith('bpmn_')) {
             try {
                 const processData = JSON.parse(localStorage.getItem(key));
-                const createTime = new Date(processData.createTime || parseInt(key.replace('bpmn_', ''))).toLocaleString();
-                
-                const div = document.createElement('div');
-                div.className = 'process-item';
-                div.innerHTML = `
-                    <div class="process-info">
-                        <div class="process-name">${processData.name || '未命名流程'} (${createTime})</div>
-                        <div class="process-tags">
-                            ${(processData.tags || []).map(tag => `
-                                <span class="tag">
-                                    ${tag}
-                                    <span class="tag-actions">
-                                        <i class="tag-edit" onclick="editTag('${key}', '${tag}')">✎</i>
-                                        <i class="tag-delete" onclick="deleteTag('${key}', '${tag}')">×</i>
-                                    </span>
-                                </span>
-                            `).join('')}
-                            <button class="add-tag-btn" onclick="addTag('${key}')">+</button>
-                        </div>
-                    </div>
-                    <div class="process-actions">
-                        <a href="view.html?id=${key}" class="btn btn-view">查看</a>
-                        <a href="edit.html?id=${key}" class="btn btn-edit">编辑</a>
-                        <button onclick="deleteProcess('${key}')" class="btn btn-danger">删除</button>
-                    </div>
-                `;
-                processList.appendChild(div);
+                processes.push({
+                    id: key,
+                    data: processData,
+                    createTime: processData.createTime || parseInt(key.replace('bpmn_', ''))
+                });
             } catch (err) {
                 console.error('加载流程数据失败:', err);
             }
         }
     }
+
+    // 按创建时间倒序排序
+    processes.sort((a, b) => b.createTime - a.createTime);
+
+    // 渲染流程列表
+    processes.forEach(process => {
+        const createTime = new Date(process.createTime)
+            .toLocaleString('zh-CN', { 
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        
+        const div = document.createElement('div');
+        div.className = 'process-item';
+        div.innerHTML = `
+            <div class="process-info">
+                <div class="process-name">
+                    <span class="name-text">${process.data.name || '未命名流程'}</span>
+                    <i class="tag-edit" onclick="renameProcess('${process.id}', '${process.data.name || ''}')">✎</i>
+                    <span class="create-time">创建于 ${createTime}</span>
+                </div>
+                <div class="process-tags">
+                    ${(process.data.tags || []).map(tag => `
+                        <span class="tag">
+                            ${tag}
+                            <span class="tag-actions">
+                                <i class="tag-edit" onclick="editTag('${process.id}', '${tag}')">✎</i>
+                                <i class="tag-delete" onclick="deleteTag('${process.id}', '${tag}')">×</i>
+                            </span>
+                        </span>
+                    `).join('')}
+                    <button class="add-tag-btn" onclick="addTag('${process.id}')">+</button>
+                </div>
+            </div>
+            <div class="process-actions">
+                <a href="view.html?id=${process.id}" class="btn btn-view">查看</a>
+                <a href="edit.html?id=${process.id}" class="btn btn-edit">编辑</a>
+                <button onclick="deleteProcess('${process.id}')" class="btn btn-danger">删除</button>
+            </div>
+        `;
+        processList.appendChild(div);
+    });
 }
 
 // 添加标签
@@ -99,3 +124,19 @@ function deleteProcess(processId) {
 
 // 页面加载完成后加载流程列表
 document.addEventListener('DOMContentLoaded', loadProcessList);
+
+// 添加重命名流程函数
+function renameProcess(processId, oldName) {
+    const newName = prompt('请输入新的流程名称：', oldName);
+    if (!newName || newName === oldName) return;
+
+    try {
+        const processData = JSON.parse(localStorage.getItem(processId));
+        processData.name = newName;
+        localStorage.setItem(processId, JSON.stringify(processData));
+        loadProcessList();
+    } catch (err) {
+        console.error('重命名失败', err);
+        alert('重命名失败');
+    }
+}
