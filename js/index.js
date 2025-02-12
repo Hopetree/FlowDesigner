@@ -40,18 +40,16 @@ function loadProcessList() {
         div.innerHTML = `
             <div class="process-info">
                 <div class="process-name">
-                    <span class="name-text">${process.data.name || '未命名流程'}</span>
-                    <i class="tag-edit" onclick="renameProcess('${process.id}', '${process.data.name || ''}')">✎</i>
+                    <span class="name-text" 
+                        onclick="renameProcess('${process.id}', '${process.data.name || ''}')"
+                    >${process.data.name || '未命名流程'}</span>
                     <span class="create-time">创建于 ${createTime}</span>
                 </div>
                 <div class="process-tags">
                     ${(process.data.tags || []).map(tag => `
                         <span class="tag">
-                            ${tag}
-                            <span class="tag-actions">
-                                <i class="tag-edit" onclick="editTag('${process.id}', '${tag}')">✎</i>
-                                <i class="tag-delete" onclick="deleteTag('${process.id}', '${tag}')">×</i>
-                            </span>
+                            <span class="tag-text">${tag}</span>
+                            <span class="tag-delete" onclick="deleteTag('${process.id}', '${tag}')">×</span>
                         </span>
                     `).join('')}
                     <button class="add-tag-btn" onclick="addTag('${process.id}')">+</button>
